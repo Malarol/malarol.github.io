@@ -1,0 +1,21 @@
+body {
+    background-color: aquamarine;
+    text-align: center;
+}
+h1 {
+    background-color: aqua;
+    color: black;
+    padding: 20px;
+    
+}
+div {
+    background-color: brown;
+    padding: 100px;
+    width: 500px;
+    text-align: center;
+
+    
+}
+a {
+    color: aliceblue;
+}
