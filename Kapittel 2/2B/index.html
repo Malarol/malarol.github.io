@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="no">
+<head> 
+  <title> HTML og CSS </title>
+  <meta charset="utf-8">
+  <style>
+    body {
+      background-color: rgb(79, 232, 13);
+      font-family: Arial, sans-serif;
+    }
+     #Taggar {
+        width: 60%;
+        margin: 50px auto;
+        padding: 20px; 
+        background-color: whitesmoke;
+        border: 3px solid black;
+     }
+  </style>
+</head>
+<body>
+  <h1> Struktur </h1>
+ <p> I HTML er det ikkje lurt å gjøre mange endringer på struktur midt i dokumentet. Dette er fordi HTML styrer hovedstrukturen. Dokumentet blir mindre oversiktleg, og videre stiler blir vansklegare å implementere. </p>
+
+ <p> Med moderne CSS, kan vi unngå å bruke kompliserte tagger i html. Den mest brukte taggen er div. Den gjer eigentleg ikkje veldig mykje, men den kan brukast til å gruppere innhald og gruppere hvilke delar av nettsida som blir stylet. Men alt i alt er det berre ein usynleg firkant vi plasserer tekst inni. Div taggene kan også bli søtte opp med id: < div id = "hoved" >. Ved hjelp av id, kan vi spesifisere vilken div som skal ha den bestemte stilen. </p>
+
+ <div id="Taggar">
+ <h3> Tagger </h3>
+
+ <p> Vi har fleire tagger i HTML. Eg har tidligare brukt H1 taggen for å definere overskrifter, men h2, h3, h4, er også overskrifttagger, men mindre. Vi kan også bruke br taggen for å hoppe over i linje, og hr taggen for å lage eit linjeskille mellom teksten.</p>
+  </div>
+
+ <h3> Bilder</h3>
+  <p> Det er enkelt å legge inn bilder i HTML, da bruker vi img taggen. Den blir følgt av src, widht, height alt. Alt er eit attributt vi bruker for å legge til informasjon om bildet. Feks kan vi bruke dette tilfeldige bildet: <img source="lockmeme-01.png" width = "960" height = "634" alt = "Et tilfeldig bilde">. I dette tilfellet ser vi kor viktig alt er, ettersom nettsida ikkje finner bilde </p>
+
+  <h3> CSS </h3>
+  <p> CSS tyder cascading style sheets, og er eit språk for å style nettsider. For å utnytte det legger vi til style taggar inni head taggen. Inni taggen velger vi første hvilken del av dokumentet stilen høyrer til. Det kan feks være h1 eller body. Vi skriver tagget vi valgte og følger ein dict struktur for attributter. Her har eg brukt atributtene backgroundcolor, og font-family. 
+
+  <h3> Lenker</h3>
+  <p> Lenker er ein av de viktigaste elementene i HTML. Det blir søtte opp ved a tagget, i følge med href attributtet, og kan feks se slik ut: < a href="kontakt.html">Kontakt meg< /a>. Her er det viktig at kontakt.html er ein brukbar html fil. I nokre tilfeller om du eier eit domene, kan du skrive inn lenken direkte i tagget. Videre om du ønsker at linken skal åpnes i ein ny fane bruker ein attributtet target = "_blank". <br> Det er også mulig å bruke css til lenker. Da bruker vi a og deretter krølleparanteser. Vi har også mange forskjellige css styler til lenker, vi har a:active, a:visited, a:hover, a:focus. </p>
+
+  </body>
+</html>
