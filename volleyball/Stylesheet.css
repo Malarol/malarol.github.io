@@ -1,0 +1,42 @@
+body{
+    background-image: url(https://ddgobkiprc33d.cloudfront.net/c6bb2a54-c9bd-4f94-a516-c2f8c5761422.jpg);
+    font-family: "Arial", sans-serif;
+}
+
+img{
+    height: 700px;
+    display: block;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+nav {
+    justify-content: center;
+    background-color: blue;
+    text-align: center;
+    
+}
+
+a:link {
+    color: white;
+}
+
+a:visited {
+    color: white;
+}
+
+.frontimage {
+    height: 200px
+}
+
+#video {
+    display: block;
+    margin: 0 auto
+
+}
+
+#credentials{
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 50px;
+}
