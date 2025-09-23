@@ -1,0 +1,26 @@
+#hoved {
+  width: 1200px;
+  height: 600px;
+  display: grid;
+  gap: 5px;
+  background-color: #c6c6c6;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas: 
+    "tv o1 o2 th th" 
+    "tv nb nb mm nh"
+    "nv nb nb nm nh";
+}
+#hoved > div {
+  background-color: #aac9c6;
+  border: 1px solid black;
+}
+.toppvenstre    { grid-area : tv; }
+.nedvenstre { grid-area : nv; }
+.topphoyre   { grid-area : th; }
+.nedhoyre   {grid-area: nh ;}
+.oppmidt1   {grid-area: o1 ;}
+.oppmidt2   {grid-area: o2 ;}
+.nedbox     {grid-area: nb;}
+.nedmidt    {grid-area: nm;}
+.midtmidt    {grid-area: mm;}

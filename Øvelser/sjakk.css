@@ -1,0 +1,34 @@
+#hoved {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    height: 800px;
+    width: 800px;;
+
+
+}
+#hoved div{
+    border: 1px solid black;
+}
+
+#hoved div:nth-child(16n + 1),
+#hoved div:nth-child(16n + 3),
+#hoved div:nth-child(16n + 5),
+#hoved div:nth-child(16n + 7),
+#hoved div:nth-child(16n + 10),
+#hoved div:nth-child(16n + 12),
+#hoved div:nth-child(16n + 14),
+#hoved div:nth-child(16n + 16) {
+    background-color: rgb(202, 202, 172);
+}
+
+#hoved div:nth-child(16n + 2),
+#hoved div:nth-child(16n + 4),
+#hoved div:nth-child(16n + 6),
+#hoved div:nth-child(16n + 8),
+#hoved div:nth-child(16n + 9),
+#hoved div:nth-child(16n + 11),
+#hoved div:nth-child(16n + 13),
+#hoved div:nth-child(16n + 15) {
+    background-color: rgb(98, 43, 11);
+}
