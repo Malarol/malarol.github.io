@@ -35,13 +35,10 @@ main {
 }
 
 .separator {
+    grid-area: S;   /* <---- tell CSS Grid where it belongs */
     border: none;
     border-top: 2px solid rgb(102, 100, 100);
-
-    margin: auto;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-    padding-bottom: 1.5rem;
+    margin: 0.5rem 1.5rem;  /* small vertical gap */
 }
 
 .padding {

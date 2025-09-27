@@ -1,14 +1,18 @@
+body {
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  color: white;
+  background-color: black;
+}
+
 #hoved {
   width: 1500px;
   height: 700px;
   display: grid;
-  font-family: 'Times New Roman', Times, serif;
-  color: white;
-  
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(7, 1fr);
-  grid-template-areas: 
-    "n n n n n" 
+  grid-template-areas:
+    "n n n n n"
     "b b i i i"
     "b b i i i"
     "b b i i i"
@@ -16,100 +20,132 @@
     "b b i i i"
     "b b i i i";
 }
+
 #hoved > div {
-    border: 1px solid rgb(255, 255, 255);
+  border: 1px solid white;
 }
-.Nav    { grid-area : n; }
-.Bilde { grid-area : b; }
-.Info   { grid-area : i; }
 
+/* NAVIGATION */
 .Nav {
-    background-color: rgb(34,34,34);
-    display: grid;
-    grid-template-columns: 5;
-    grid-template-rows: 1;
-    grid-template-areas:
-    "Na Na c c c"
-    
+  grid-area: n;
+  background-color: rgb(34, 34, 34);
+  display: grid;
+  grid-template-areas: "Na Na c c c";
 }
-
-.Bilde {
-    background: url("Bilder/Forsidebilde.JPG") no-repeat center center;
-    background-size: cover;
-    background-position: center 50%;
-}
-
-.Navn { grid-area : Na; }
-.Contact { grid-area : c; }
 
 .Navn {
-    display:flex;
-    justify-content: left;
-    align-items: center;
-    padding-left: 1.5rem;
+  grid-area: Na;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .Contact {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 5rem;
-    padding-left: 8rem;
-
+  grid-area: c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5rem 0 11rem;
 }
 
+.Contact a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  background-color: transparent;
+  color: white;
+  text-decoration: none;
+  border: 2px solid white;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.Contact a:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.05);
+}
+
+.Contact a:active {
+  background-color: #ddd;
+  transform: scale(0.98);
+}
+
+/* IMAGE SECTION */
+.Bilde {
+  grid-area: b;
+  background: url("Bilder/Forsidebilde.JPG") no-repeat center center;
+  background-size: cover;
+  background-position: center 50%;
+}
+
+/* INFO SECTION */
 .Info {
-    background-color: rgb(20,20,20);
-    display: grid;
-    grid-template-columns: 1;
-    grid-template-rows: 3;
-    grid-template-areas:
+  grid-area: i;
+  background-color: rgb(20, 20, 20);
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas:
     "H"
+    "S"
     "T"
-    "Cr"
-}
-
-.separator {
-    border: none;
-    border-top: 2px solid rgb(102, 100, 100);
-
-    margin: auto;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-    padding-bottom: 1.5rem;
+    "Cr";
+  font-family: "Lato", sans-serif;
 }
 
 .Header {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 5rem;
-    display: flex;
-    justify-content: center;
+  grid-area: H;
+  font-size: 5rem;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 3rem;
+}
+
+.separator {
+  grid-area: S;
+  border: none;
+  border-top: 2px solid rgb(102, 100, 100);
+  margin: 0.5rem 1.5rem 1rem 1.5rem;
 }
 
 .Text {
-    display:flex;
-    text-align: center;
-    padding-left: 2rem;
-    padding-right: 2rem;
+  grid-area: T;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 0 2rem;
+  height: 100%;
 }
 
-.Header { grid-area : H; }
-.Text { grid-area : T; }
-.Cred { grid-area : Cr; }
-
-a:link {
+#github {
+  display: inline-block;
+  background-color: rgb(20, 20, 20);
   color: rgb(255, 255, 255);
+  padding: 0.75rem 1.5rem;
+  border: 2px solid white;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-top: auto;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-a:visited {
-  color: rgb(255, 255, 255);
+#github:hover {
+  background-color: #ffffff;
+  color: black;
+  transform: scale(1.05);
 }
 
-a:hover {
-  color: rgb(255, 255, 255);
+#github:active {
+  background-color: #ddd;
+  transform: scale(0.98);
 }
 
-a:active {
-  color: rgb(255, 255, 255);
+.Cred {
+  grid-area: Cr;
 }
-
