@@ -20,30 +20,6 @@ class Player(pg.sprite.Sprite):
         self.laser_shoot_time = 0
         self.cooldown_duration = 400
 
-        # Highscores
-        self.load_highscores()
-
-    def load_highscores(self):
-        self.easy_highscore = 0
-        self.medium_highscore = 0
-        self.hard_highscore = 0
-        self.impossible_highscore = 0
-
-        highscore_files = {
-            "easy": "easy.highscore.txt",
-            "medium": "medium.highscore.txt",
-            "hard": "hard.highscore.txt",
-            "impossible": "impossible.highscore.txt"
-        }
-
-        for difficulty, filename in highscore_files.items():
-            try:
-                with open(filename, "r") as file:
-                    score = int(file.read())
-                    setattr(self, f"{difficulty}_highscore", score)
-            except FileNotFoundError:
-                continue
-
     def laser_timer(self):
         if not self.can_shoot:
             current_time = pg.time.get_ticks()
@@ -58,14 +34,10 @@ class Player(pg.sprite.Sprite):
         
         self.rect.center += self.direction * self.speed * dt
 
-        if player.rect.centerx >= SCREEN_WIDTH:
-            player.rect.centerx = SCREEN_WIDTH
-        if player.rect.centerx <= 0:
-            player.rect.centerx = 0
-        if player.rect.centery >= SCREEN_HEIGHT:
-            player.rect.centery = SCREEN_HEIGHT
-        if player.rect.centery <= 0:
-            player.rect.centery = 0
+        if self.rect.centerx >= SCREEN_WIDTH: self.rect.centerx = SCREEN_WIDTH
+        if self.rect.centerx <= 0: self.rect.centerx = 0
+        if self.rect.centery >= SCREEN_HEIGHT: self.rect.centery = SCREEN_HEIGHT
+        if self.rect.centery <= 0: self.rect.centery = 0
     
         recent_keys = pg.key.get_just_pressed()
         if recent_keys[pg.K_SPACE] and self.can_shoot:
@@ -94,12 +66,6 @@ class Laser(pg.sprite.Sprite):
         self.rect.centery -= 400 * dt
         if self.rect.bottom < 0:
             self.kill()
-class Audio(pg.sprite.Sprite):
-    def __init__(self, surf, pos, *groups):
-        super().__init__(groups)
-        self.image = surf
-        self.rect = self.image.get_frect(center=pos)
-        self.sound = True
 
 
 class Meteor(pg.sprite.Sprite):
@@ -119,7 +85,7 @@ class Meteor(pg.sprite.Sprite):
 
 
 def collisions():      
-    global run
+    global run, score
     collision_sprites = pg.sprite.spritecollide(player, meteor_sprites, True)
     if collision_sprites:
         for sprite in meteor_sprites:
@@ -130,70 +96,43 @@ def collisions():
         collided_sprites = pg.sprite.spritecollide(laser, meteor_sprites, True)
         if collided_sprites:
             laser.kill()
-            global score
             score += 1
+
 
 run = True
 difficulty = None 
 
 def menu():
-    global run
-    global sound
-    sound = True
-    # Fonts
-    global title_font
-    global button_font
+    global run, score
+
     title_font = pg.font.Font(None, 100)
     button_font = pg.font.Font(None, 50)
     text_gray = (200, 200, 200)
 
-    # Button settings
     play_button = pg.Rect(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50, 200, 50)
     quit_button = pg.Rect(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 20, 200, 50)
-    achivements_button = pg.Rect(SCREEN_WIDTH - 270, 20, 245, 50)
 
-    global score
     menu_running = True
     while menu_running:
- 
         if not run:
             return
 
         screen.fill("#3a2e3f")
 
-        # Title
-        ship = player.image
         title_surface = title_font.render("Spaceship", True, (200, 200, 200))
         title_rect = title_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4))
         screen.blit(title_surface, title_rect)
-        screen.blit(ship, (SCREEN_WIDTH/ 2 - 53, SCREEN_HEIGHT - 200))
 
-
-        # Buttons
         pg.draw.rect(screen, (0, 0, 255), play_button)
         pg.draw.rect(screen, (255, 0, 0), quit_button)
-        pg.draw.rect(screen, (255, 204, 51), achivements_button)
 
         play_text = button_font.render("Play", True, white)
         quit_text = button_font.render("Quit", True, white)
-        achivements_button_text = button_font.render("Achievements", True, white)
         score_surface = Game_font.render(f"Score: {score}", True, text_gray)
-        text_highscores = Game_font.render(f"Highscores:", True, text_gray)
-        easy_highscore_text = Game_font.render(f"Easy: {player.easy_highscore}", True, text_gray)
-        medium_highscore_text = Game_font.render(f"Medium: {player.medium_highscore}", True, text_gray)
-        hard_highscore_text = Game_font.render(f"Hard: {player.hard_highscore}", True, text_gray)
-        impossible_highscore_text = Game_font.render(f"Impossible: {player.impossible_highscore}", True, text_gray)
 
         screen.blit(play_text, play_text.get_rect(center=play_button.center))
         screen.blit(quit_text, quit_text.get_rect(center=quit_button.center))
-        screen.blit(achivements_button_text, achivements_button_text.get_rect(center=achivements_button.center))
         screen.blit(score_surface, (10, 10))
-        screen.blit(text_highscores, (10, SCREEN_HEIGHT - 200))
-        screen.blit(easy_highscore_text, (10, SCREEN_HEIGHT - 160))
-        screen.blit(medium_highscore_text, (10, SCREEN_HEIGHT - 120))
-        screen.blit(hard_highscore_text, (10, SCREEN_HEIGHT - 80))
-        screen.blit(impossible_highscore_text, (10, SCREEN_HEIGHT - 40))
-
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -204,9 +143,6 @@ def menu():
                     score = 0
                     difficulty_menu()
                     return
-                if achivements_button.collidepoint(event.pos):
-                    achievements_menu()
-                    return 
                 if quit_button.collidepoint(event.pos):
                     run = False  
                     menu_running = False
@@ -217,17 +153,17 @@ def menu():
 
 
 def difficulty_menu():
-    global run  
-    global meteor_spawn_time 
+    global run, meteor_spawn_time, difficulty  
 
     pg.event.clear()
-
     clock = pg.time.Clock()
+
+    title_font = pg.font.Font(None, 100)
+    button_font = pg.font.Font(None, 50)
 
     easy_button = pg.Rect(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 110, 300, 70)
     medium_button = pg.Rect(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 30, 300, 70)
     hard_button = pg.Rect(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 + 50, 300, 70)
-    impossible_button = pg.Rect(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 + 130, 300, 70)
 
     difficulty_running = True
     while difficulty_running:
@@ -242,25 +178,19 @@ def difficulty_menu():
         pg.draw.rect(screen, green, easy_button)
         pg.draw.rect(screen, blue, medium_button)
         pg.draw.rect(screen, red, hard_button)
-        pg.draw.rect(screen, dark_red, impossible_button)
 
         easy_text = button_font.render("Easy", True, white)
         medium_text = button_font.render("Medium", True, white)
         hard_text = button_font.render("Hard", True, white)
-        impossible_text = button_font.render("Impossible", True, white)
 
         screen.blit(easy_text, easy_text.get_rect(center=easy_button.center))
         screen.blit(medium_text, medium_text.get_rect(center=medium_button.center))
         screen.blit(hard_text, hard_text.get_rect(center=hard_button.center))
-        screen.blit(impossible_text, impossible_text.get_rect(center=impossible_button.center))
 
-        global meteor_spawn_time
-        global difficulty
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 run = False
                 difficulty_running = False
-
             if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 if easy_button.collidepoint(event.pos):
                     meteor_spawn_time = 400
@@ -271,9 +201,6 @@ def difficulty_menu():
                 elif hard_button.collidepoint(event.pos):
                     meteor_spawn_time = 120
                     difficulty = "hard"
-                elif impossible_button.collidepoint(event.pos):
-                    meteor_spawn_time = 70
-                    difficulty = "impossible"
 
                 pg.time.set_timer(meteor_event, meteor_spawn_time)
                 return
@@ -282,105 +209,6 @@ def difficulty_menu():
         clock.tick(60)
     pg.quit()
 
-
-def achievements_menu():
-    global difficulty  
-        
-    pg.event.clear()
-
-    achvmnt1_rect = pg.Rect(SCREEN_WIDTH // 2 - 300, SCREEN_HEIGHT // 2 - 110, 600, 70)
-    achvmnt2_rect = pg.Rect(SCREEN_WIDTH // 2 - 300, SCREEN_HEIGHT // 2 - 30, 600, 70)
-    achvmnt3_rect = pg.Rect(SCREEN_WIDTH // 2 - 300, SCREEN_HEIGHT // 2 + 50, 600, 70)
-    achvmnt4_rect = pg.Rect(SCREEN_WIDTH // 2 - 300, SCREEN_HEIGHT // 2 + 130, 600, 70)
-    achvmnt5_rect = pg.Rect(SCREEN_WIDTH // 2 - 300, SCREEN_HEIGHT // 2 + 210, 600, 70)
-
-    achvmnt_exit_rect = pg.Rect(20, 40, 300, 70)
-
-    achievment_running = True
-    while achievment_running:
-
-        if not achievment_running:
-            return
-
-        global achieved1, achieved2, achieved3, achieved4, achieved5
-
-        achvmnt1 = False
-        achvmnt2 = False
-        achvmnt3 = False
-        achvmnt4 = False
-        achvmnt5 = False
-
-        global achivement_color1, achivement_color2, achivement_color3, achivement_color4, achivement_color5
-        achivement_color1 = red
-        achivement_color2 = red
-        achivement_color3 = red
-        achivement_color4 = red
-        achivement_color5 = red
-
-        if score >= 50 and difficulty == "easy":
-            achvmnt1 = True
-        if score >= 30 and difficulty == "medium":
-            achvmnt2 = True
-        if score >= 20 and difficulty == "hard":
-            achvmnt3 = True
-        if score >= 10 and difficulty == "impossible":
-            achvmnt4 = True
-        if score >= 100:
-            achvmnt5 = True
-
-        if achvmnt1 == True:
-            achivement_color1 = green
-        if achvmnt2 == True:
-            achivement_color2 = green
-        if achvmnt3 == True:
-            achivement_color3 = green
-        if achvmnt4 == True:
-            achivement_color4 = green
-        if achvmnt5 == True:
-            achivement_color5 = green
-
-        screen.fill("#3a2e3f")
-        achievements_title_surf = title_font.render("Achievements", True, (200, 200, 200))
-        achievements_title_rect = achievements_title_surf.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4 - 100))
-        screen.blit(achievements_title_surf, achievements_title_rect)
-
-        achvmnt1_text = Game_font.render("Score 50 points on easy difficulty", True, white)
-        achvmnt2_text = Game_font.render("Score 30 points on medium difficulty", True, white)
-        achvmnt3_text = Game_font.render("Score 20 points on hard difficulty", True, white)
-        achvmnt4_text = Game_font.render("Score 10 points on impossible difficulty", True, white)
-        achvmnt5_text = Game_font.render("Score 100 points on any difficulty", True, white)
-        achvmnt_exit_text = Game_font.render("Go back", True, white)
-
-        pg.draw.rect(screen, achivement_color1, achvmnt1_rect)
-        pg.draw.rect(screen, achivement_color2, achvmnt2_rect)
-        pg.draw.rect(screen, achivement_color3, achvmnt3_rect)
-        pg.draw.rect(screen, achivement_color4, achvmnt4_rect)
-        pg.draw.rect(screen, achivement_color5, achvmnt5_rect)
-        pg.draw.rect(screen, dark_gray, achvmnt_exit_rect)
-
-        screen.blit(achvmnt1_text, achvmnt1_text.get_rect(center=achvmnt1_rect.center))
-        screen.blit(achvmnt2_text, achvmnt2_text.get_rect(center=achvmnt2_rect.center))
-        screen.blit(achvmnt3_text, achvmnt3_text.get_rect(center=achvmnt3_rect.center))
-        screen.blit(achvmnt4_text, achvmnt4_text.get_rect(center=achvmnt4_rect.center))
-        screen.blit(achvmnt5_text, achvmnt5_text.get_rect(center=achvmnt5_rect.center))
-        screen.blit(achvmnt_exit_text, achvmnt_exit_text.get_rect(center=achvmnt_exit_rect.center))
-
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                run = False  
-                achievment_running = False  
-
-            if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-                if achvmnt_exit_rect.collidepoint(event.pos):
-                    menu()
-
-                return
-            
-        pg.display.update()
-        clock.tick(60)
-    pg.quit()
-
-    
 
 # Setup Pygame
 pg.init()
@@ -395,13 +223,10 @@ Game_font = pg.font.Font(None, 40)
 score = 0
 
 # Colors
-black = (0, 0, 0)
 white = (255, 255, 255)
 red = (255, 0, 0)
 green = (0, 230, 0)
 blue = (0, 0, 255)
-dark_gray = (169, 169, 169)
-dark_red = (100, 0, 0)
 
 # Load images
 star_surf   = pg.image.load(join("Spaceship", "images", "star.png")).convert_alpha()
@@ -409,7 +234,7 @@ meteor_surf = pg.image.load(join("Spaceship", "images", "meteor.png")).convert_a
 laser_surf  = pg.image.load(join("Spaceship", "images", "laser.png")).convert_alpha()
 
 # Load audio
-laser_audio_load = mixer.music.load(join("Spaceship", "audio", "space_shooter_audio_laser.wav"))
+mixer.music.load(join("Spaceship", "audio", "space_shooter_audio_laser.wav"))
 
 # Sprites
 all_sprites = pg.sprite.Group()
@@ -429,9 +254,8 @@ difficulty_menu()
 # Main game loop
 run = True
 while run:
-    dt = clock.tick() / 1000  # Frame rate
+    dt = clock.tick() / 1000  
 
-    # Event loop
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
@@ -447,53 +271,7 @@ while run:
     
     text_surface = Game_font.render(f"Score: {score}", True, (200, 200, 200))
     screen.blit(text_surface, (10, 10))
-
-    if score > player.easy_highscore and difficulty == "easy":
-        player.easy_highscore = score
-        with open("easy.highscore.txt", "w") as file:
-            file.write(str(player.easy_highscore))
-    elif score > player.medium_highscore and difficulty == "medium":
-        player.medium_highscore = score
-        with open("medium.highscore.txt", "w") as file:
-            file.write(str(player.medium_highscore))
-    elif score > player.hard_highscore and difficulty == "hard":
-        player.hard_highscore = score
-        with open("hard.highscore.txt", "w") as file:
-            file.write(str(player.hard_highscore))
-    elif score > player.impossible_highscore and difficulty == "impossible":
-        player.impossible_highscore = score
-        with open("impossible.highscore.txt", "w") as file:
-            file.write(str(player.impossible_highscore))
-
-    achieved1 = "unachived" 
-    achieved2 = "unachived" 
-    achieved3 = "unachived" 
-    achieved4 = "unachived" 
-    achieved5 = "unachived"
-
-    if score >= 50 and difficulty == "easy":
-        achvmnt1 = True
-        with open("achievement1.txt", "w") as file:
-            achived1 = file.write("Achieved")
-    if score >= 30 and difficulty == "medium":
-        achvmnt2 = True
-        with open("achievement2.txt", "w") as file:
-            achived2 = file.write("Achieved")
-    if score >= 20 and difficulty == "hard":
-        achvmnt3 = True
-        with open("achievement3.txt", "w") as file:
-            achived3 = file.write("Achieved")
-    if score >= 10 and difficulty == "impossible":
-        achvmnt4 = True
-        with open("achievement4.txt", "w") as file:
-            achived4 = file.write("Achieved")
-    if score >= 100:
-        achvmnt5 = True
-        with open("achievement5.txt", "w") as file:
-            achived5 = file.write("Achieved")
-
     
-    # Update the display
     pg.display.update()
 
 pg.quit()
