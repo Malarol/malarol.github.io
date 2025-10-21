@@ -67,6 +67,15 @@ body {
     padding: 0rem
   }
 
+#theme-toggle {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb("34, 34 34");
+    transition: all 0.3s ease;
+}
+
   .Header {
     display: flex;
     justify-content: center;
@@ -125,7 +134,7 @@ body {
 
 .Bilde {
   grid-area: b;
-  background: url("Bilder/Forsidebilde.JPG") no-repeat center center;
+  background: url("../Bilder/Forsidebilde.JPG") no-repeat center center;
   background-size: cover;
   background-position: center 50%;
   min-width: 200px;

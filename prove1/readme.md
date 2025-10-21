@@ -1,0 +1,1 @@
+For å komme inn på andre sida må du trykke på den kvite trykk her knappen på det første spiderman bildet
