@@ -6,6 +6,7 @@ button.addEventListener("click", () => {
     // ☀️ LIGHT MODE
     document.body.style.backgroundColor = "white";
     document.body.style.color = "rgb(34, 34, 34)";
+    document.getElementById("themeToggle").innerText = "Light mode";
 
     // Nav bar
     const nav = document.querySelector(".Nav");
@@ -56,11 +57,13 @@ button.addEventListener("click", () => {
       github.style.color = "rgb(34, 34, 34)";
     };
 
+
     darkMode = false;
   } else {
     // 🌙 DARK MODE
     document.body.style.backgroundColor = "black";
     document.body.style.color = "white";
+        document.getElementById("themeToggle").innerText = "Dark mode";
 
     // Nav bar
     const nav = document.querySelector(".Nav");
