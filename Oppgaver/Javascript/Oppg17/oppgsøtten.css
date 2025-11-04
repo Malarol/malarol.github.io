@@ -1,0 +1,28 @@
+body {
+    display: grid;
+    justify-content: center;
+    grid-template-areas: 
+    "b1 i i i i b2"
+    "b1 i i i i b2"
+    "b1 i i i i b2"
+    "b1 i i i i b2"
+    ;
+}
+
+#knapppluss {
+    grid-area: b2;
+}
+
+#knappminus {
+    grid-area: b1;
+}
+
+img {
+    grid-area: i;
+    width: 800px;
+    height: 400px;
+}
+
+button {
+    background-color: blue;
+}
