@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="form.css">
+    <script src= "form.js" defer ></script>
+    <title>Form</title>
+</head>
+<body>
+    <form id = "skjema">
+        <label for="navn" required>Navn: </label>
+        <input type="text" name="navn" id="navn">
+
+        <div>
+            <label>Kjønn:</label>
+            <input type="radio" for="kjønn" id="mann" value="mann" name="kjønn">
+            <label for="mann">mann</label>
+            <input type="radio" for="kjønn" id = "kvinne" value="kvinne" name="kjønn">
+            <label for="kvinne">kvinne</label>
+        </div>
+
+        <label for="email" required>Email: </label>
+        <input type="email" name="email" id="email">
+
+        <label for="adresse" required>Adresse: </label>
+        <input type="text" name="adresse" id="adresse">
+
+        <label for="telefonnummer" required>Tlf: </label>
+        <input type="text" name="telefonnummer" id = "tlf">
+
+        <label for="bilettype" required>Bilettype</label>
+        <select name="bilettype" id="bilettype">
+            <option value="Standard">Standard</option>
+            <option value="Student">Student</option>
+            <option value="VIP">VIP</option>
+        </select>
+
+        <label for="dato">Dato:</label>
+        <input type="date" name="dato" id="dato">
+
+        <button type="submit" id="submit">Submit</button>
+    </form>
+</body>
+</html>
