@@ -1,0 +1,37 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: rgb(78, 208, 182);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+#container {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    max-width: 500px;
+    width: 100%;
+}
+
+#skjema {
+    margin-bottom: 1rem;
+}
+
+#ord {
+    padding: 6px;
+    width: 70%;
+    margin-right: 6px;
+}
+
+#søk {
+    padding: 6px 14px;
+}
+
+#output p {
+    margin: 4px 0;
+}
