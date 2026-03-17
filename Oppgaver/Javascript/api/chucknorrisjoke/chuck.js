@@ -6,7 +6,6 @@ async function chuckJoke() {
 }
 //joke();
 
-
 button = document.getElementById("button");
 jokeout = document.getElementById("joke");
 
@@ -14,3 +13,5 @@ button.addEventListener("click", async () => {
     jokeout.innerText = ""
     jokeout.innerText = await chuckJoke()
 })
+
+console.log(chuckJoke())

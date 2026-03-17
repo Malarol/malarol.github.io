@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="formovelse.js" defer></script>
+    <title>Form øvelse</title>
+</head>
+<body>
+    <form id="skjema">
+        <label for="name">Navn</label>
+        <input type="text" id="name" required>
+
+        <label for="alder">Alder</label>
+        <input type="number" id="alder" required>
+
+        <label for="klasse">Klasse</label>
+        <select id="klasse" required>
+            <option value="1">1 klasse</option>
+            <option value="2">2 klasse</option>
+            <option value="3">3 klasse</option>
+        </select>
+
+        <label for="favorittfag">Favorittfag</label>
+        <select id="favorittfag">
+            <option value="matte">Matte</option>
+            <option value="naturfag">Naturfag</option>
+            <option value="engelsk">Engelsk</option>
+        </select>
+        
+        <label for="rettigheter">Godta rettigheter</label>
+        <input type ="checkbox" id = "rettigheter">
+
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>
